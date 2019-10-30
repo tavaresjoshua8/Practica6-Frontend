@@ -2,6 +2,7 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 import Home from '../views/Home.vue'
 import Inventario from '../views/Inventario.vue'
+import Reportes from '../views/Reportes.vue'
 
 Vue.use(VueRouter)
 
@@ -19,7 +20,12 @@ const routes = [
 		path: '/inventario',
 		name: 'inventario',
 		component: Inventario // () => import('../views/Inventario.vue')
-	}
+	},
+    {
+        path: '/reportes',
+        name: 'reportes',
+        component: Reportes
+    }
 ]
 
 const router = new VueRouter({

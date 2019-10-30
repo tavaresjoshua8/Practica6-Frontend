@@ -16,20 +16,20 @@
 						<v-list-item-title>Home</v-list-item-title>
 					</v-list-item-content>
 				</v-list-item>
+				<v-list-item link :to="{name: 'reportes'}">
+					<v-list-item-action>
+						<v-icon>mdi-alert</v-icon>
+					</v-list-item-action>
+					<v-list-item-content>
+						<v-list-item-title>Reportes</v-list-item-title>
+					</v-list-item-content>
+				</v-list-item>
 				<v-list-item link :to="{name: 'inventario'}">
 					<v-list-item-action>
 						<v-icon>mdi-book-outline</v-icon>
 					</v-list-item-action>
 					<v-list-item-content>
 						<v-list-item-title>Inventario</v-list-item-title>
-					</v-list-item-content>
-				</v-list-item>
-				<v-list-item link>
-					<v-list-item-action>
-						<v-icon>mdi-settings</v-icon>
-					</v-list-item-action>
-					<v-list-item-content>
-						<v-list-item-title>Settings</v-list-item-title>
 					</v-list-item-content>
 				</v-list-item>
 			</v-list>

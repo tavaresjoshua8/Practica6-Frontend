@@ -11,7 +11,7 @@
         >
             <template v-slot:top>
                 <v-toolbar flat>
-                    <v-toolbar-title>Computadoras</v-toolbar-title>
+                    <v-toolbar-title>Reportes</v-toolbar-title>
                     <v-divider
                         class="mx-4"
                         inset
@@ -28,7 +28,7 @@
                     <v-spacer></v-spacer>
                     <v-dialog v-model="dialog" max-width="500px">
                         <template v-slot:activator="{ on }">
-                            <v-btn color="primary" dark class="mb-2" v-on="on">Nueva Computadora</v-btn>
+                            <v-btn color="primary" dark class="mb-2" v-on="on">Nuevo Reporte</v-btn>
                         </template>
                         <v-card :loading="savingItems">
                             <v-card-title>
@@ -38,72 +38,23 @@
                                 <v-container>
                                     <v-form ref="form">
                                         <v-row>
-                                            <v-col cols="12" sm="6">
-                                                <v-text-field label="Nombre"
-                                                    v-model="editedItem.name"
-                                                    :rules="rules.required"></v-text-field>
-                                            </v-col>
-                                            <v-col cols="12" sm="6">
-                                                <v-text-field label="Sistema Operativo"
-                                                    v-model="editedItem.operative_system"
-                                                    :rules="rules.required"></v-text-field>
-                                            </v-col>
-                                        </v-row>
-                                        <h2>Hardware</h2>
-                                        <v-row>
-                                            <v-col cols="12" sm="6" md="4">
-                                                <v-text-field label="Modelo"
-                                                    v-model="editedItem.hardware.model"
-                                                    :rules="rules.required"></v-text-field>
-                                            </v-col>
-                                            <v-col cols="12" sm="6" md="4">
-                                                <v-text-field label="Marca"
-                                                    v-model="editedItem.hardware.brand"
-                                                    :rules="rules.required"></v-text-field>
-                                            </v-col>
-                                            <v-col cols="12" sm="6" md="4">
-                                                <v-text-field label="No. de Serie"
-                                                    v-model="editedItem.hardware.serial"
-                                                    :rules="rules.required"></v-text-field>
-                                            </v-col>
-                                            <v-col cols="12" sm="6" md="4">
-                                                <v-text-field label="RAM"
-                                                    v-model="editedItem.hardware.ram"
-                                                    :rules="rules.required"></v-text-field>
-                                            </v-col>
-                                            <v-col cols="12" sm="6" md="4">
-                                                <v-text-field label="Procesador"
-                                                    v-model="editedItem.hardware.processor"
-                                                    :rules="rules.required"></v-text-field>
-                                            </v-col>
-                                            <v-col cols="12" sm="6" md="4">
-                                                <v-text-field label="Disco Duro"
-                                                    v-model="editedItem.hardware.hdd"
-                                                    :rules="rules.required"></v-text-field>
-                                            </v-col>
-                                        </v-row>
-                                        <h2>Ubicación</h2>
-                                        <v-row>
-                                            <v-col cols="12" sm="6">
-                                                <v-text-field label="Departamento"
-                                                    v-model="editedItem.location.department"
-                                                    :rules="rules.required"></v-text-field>
-                                            </v-col>
-                                            <v-col cols="12" sm="6">
-                                                <v-text-field label="Responsable"
-                                                    v-model="editedItem.location.leader"
-                                                    :rules="rules.required"></v-text-field>
+                                            <v-col cols="12">
+                                                <v-select label="Computadora"
+                                                    :items="computers"
+                                                    v-model="editedItem.computer_id"></v-select>
                                             </v-col>
                                             <v-col cols="12">
-                                                <v-textarea label="Observaciones"
-                                                    v-model="editedItem.location.observations"></v-textarea>
+                                                <v-date-picker label="Fecha"
+                                                    v-model="editedItem.date"></v-date-picker>
                                             </v-col>
                                             <v-col cols="12">
-                                                <v-alert type="error"
-                                                    v-if="response.error"
-                                                >
-                                                    {{ response.message }}
-                                                </v-alert>
+                                                <v-textarea label="Descripción"
+                                                    v-model="editedItem.description"
+                                                    :rules="rules.required"></v-textarea>
+                                            </v-col>
+                                            <v-col cols="12">
+                                                <v-textarea label="Solución"
+                                                    v-model="editedItem.solution"></v-textarea>
                                             </v-col>
                                         </v-row>
                                     </v-form>
@@ -156,7 +107,7 @@
             v-model="deletedSnackbar"
             top
         >
-            Computadora Eliminada.
+            Reporte Eliminado.
             <v-btn
                 dark
                 text
@@ -183,6 +134,7 @@ export default {
         loadingItems: false,
         savingItems: false,
         search: '',
+        computers: [],
         dialog: false,
         response: {
             error: false,
@@ -194,53 +146,33 @@ export default {
             ]
         },
         headers: [
-            { text: 'Nombre', value: 'name' },
-            { text: 'S.O', value: 'operative_system' },
-            { text: 'Modelo', value: 'hardware.model' },
-            { text: 'Marca', value: 'hardware.brand' },
-            { text: 'No. de Serie', value: 'hardware.serial', sortable: false },
-            { text: 'RAM', value: 'hardware.ram' },
-            { text: 'Procesador', value: 'hardware.processor' },
-            { text: 'Disco Duro', value: 'hardware.hdd' },
-            { text: 'Departamento', value: 'location.department' },
+            { text: 'No. de Reporte', value: 'id' },
+            { text: 'Computadora', value: 'computer.name' },
+            { text: 'Fecha', value: 'date' },
+            { text: 'Descripción', value: 'description' },
+            { text: 'Solución', value: 'solution' },
             { text: 'Acciones', value: 'action', sortable: false },
         ],
         items: [],
         editedIndex: -1,
         editedItem: {
             id: 0,
-            name: '',
-            operative_system: '',
-            hardware: {
-                model: '',
-                brand: '',
-                serial: '',
-                ram: '',
-                processor: '',
-                hdd: '',
-            },
-            location: {
-                department: '',
-                leader: '',
-                observations: '',
+            computer_id: 0,
+            date: '',
+            description: '',
+            solution: '',
+            computer: {
+                name: ''
             }
         },
         defaultItem: {
             id: 0,
-            name: '',
-            operative_system: '',
-            hardware: {
-                model: '',
-                brand: '',
-                serial: '',
-                ram: '',
-                processor: '',
-                hdd: '',
-            },
-            location: {
-                department: '',
-                leader: '',
-                observations: '',
+            computer_id: 0,
+            date: '',
+            description: '',
+            solution: '',
+            computer: {
+                name: ''
             }
         },
         lastDeletedItem: {},
@@ -248,7 +180,7 @@ export default {
 
     computed: {
         formTitle () {
-            return this.editedIndex === -1 ? 'Nueva Computadora' : 'Editar Computadora'
+            return this.editedIndex === -1 ? 'Nuevo Reporte' : 'Editar Reporte'
         },
         imageRules() {
             if( this.editedIndex === -1 )
@@ -273,11 +205,15 @@ export default {
     methods: {
         initialize () {
             this.loadingItems = true
-            axios.get('/api/computers')
+            axios.get('/api/reports')
             .then(response => {
                 this.items = response.data
                 this.loadingItems = false
             })
+            axios.get('/api/computers/select')
+             .then(response => {
+                 this.computers = response.data
+             })
         },
 
         editItem (item) {
@@ -290,7 +226,7 @@ export default {
             const index = this.items.indexOf(item)
             if( confirm('¿Está seguro que quiere eliminar este item?') ){
                 this.loadingItems = true
-                axios.delete('/api/computers/' + item.id,)
+                axios.delete('/api/reports/' + item.id,)
                  .then( response => {
                     this.lastDeletedItem = response.data
                     this.loadingItems = false
@@ -321,27 +257,27 @@ export default {
             this.savingItems = true
             this.setResponseError(null)
             if (this.editedIndex > -1) { // Update
-                axios.put('/api/computers/' + this.editedItem.id, {
-                    computer: this.editedItem
+                axios.put('/api/reports/' + this.editedItem.id, {
+                    report: this.editedItem
                 })
                 .then( response => {
                     this.savingItems = false
                     Object.assign(this.items[this.editedIndex], response.data)
                     this.close()
-                    this.showSnackbar('Computadora actualizada con éxito.')
+                    this.showSnackbar('Item actualizado con éxito.')
                 }).catch( error => {
                     this.setResponseError(error)
                     this.savingItems = false
                 })
             } else { // Save
-                axios.post('/api/computers', {
-                    computer: this.editedItem
+                axios.post('/api/reports', {
+                    report: this.editedItem
                 })
                 .then( response => {
                     this.savingItems = false
                     this.items.push(response.data)
                     this.close()
-                    this.showSnackbar('Computadora guardada con éxito.')
+                    this.showSnackbar('Item guardado con éxito.')
                 }).catch( error => {
                     this.setResponseError(error)
                     this.savingItems = false
