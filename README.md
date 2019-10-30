@@ -1,4 +1,4 @@
-# frontend
+# Practica6-Frontend
 
 ## Project setup
 ```
@@ -22,4 +22,3 @@ npm run lint
 
 ### Customize configuration
 See [Configuration Reference](https://cli.vuejs.org/config/).
-# Practica6-Frontend
