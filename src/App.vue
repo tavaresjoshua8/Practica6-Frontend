@@ -63,6 +63,8 @@
 			<span>
 				<v-icon small>mdi-coffee-outline</v-icon>
 				Joshua Salcido
+                <v-icon small>mdi-database-check</v-icon>
+                Aranza Alanis
 				&copy; 2019
 			</span>
 		</v-footer>
