@@ -173,13 +173,6 @@ import axios from 'axios'
 
 export default {
     data: () => ({
-        snackbar: {
-            show: false,
-            message: '',
-            color: 'cyan darken-2',
-            close: 'Cerrar',
-        },
-        deletedSnackbar: false,
         loadingItems: false,
         savingItems: false,
         search: '',
@@ -207,24 +200,8 @@ export default {
         ],
         items: [],
         editedIndex: -1,
-        editedItem: {
-            id: 0,
-            name: '',
-            operative_system: '',
-            hardware: {
-                model: '',
-                brand: '',
-                serial: '',
-                ram: '',
-                processor: '',
-                hdd: '',
-            },
-            location: {
-                department: '',
-                leader: '',
-                observations: '',
-            }
-        },
+        editedItem: {},
+        lastDeletedItem: {},
         defaultItem: {
             id: 0,
             name: '',
@@ -243,20 +220,18 @@ export default {
                 observations: '',
             }
         },
-        lastDeletedItem: {},
+        snackbar: {
+            show: false,
+            message: '',
+            color: 'cyan darken-2',
+            close: 'Cerrar',
+        },
+        deletedSnackbar: false,
     }),
 
     computed: {
         formTitle () {
             return this.editedIndex === -1 ? 'Nueva Computadora' : 'Editar Computadora'
-        },
-        imageRules() {
-            if( this.editedIndex === -1 )
-                return [
-                    v => !!v || 'Este campo es necesario.'
-                ]
-
-            return []
         }
     },
 
@@ -272,6 +247,7 @@ export default {
 
     methods: {
         initialize () {
+            this.editedItem = Object.assign({}, this.defaultItem)
             this.loadingItems = true
             axios.get('/api/computers')
             .then(response => {

@@ -54,7 +54,8 @@
                                             </v-col>
                                             <v-col cols="12">
                                                 <v-textarea label="Solución"
-                                                    v-model="editedItem.solution"></v-textarea>
+                                                    v-model="editedItem.solution"
+                                                    :rules="rules.required"></v-textarea>
                                             </v-col>
                                         </v-row>
                                     </v-form>
@@ -155,16 +156,7 @@ export default {
         ],
         items: [],
         editedIndex: -1,
-        editedItem: {
-            id: 0,
-            computer_id: 0,
-            date: '',
-            description: '',
-            solution: '',
-            computer: {
-                name: ''
-            }
-        },
+        editedItem: {},
         defaultItem: {
             id: 0,
             computer_id: 0,
@@ -181,14 +173,6 @@ export default {
     computed: {
         formTitle () {
             return this.editedIndex === -1 ? 'Nuevo Reporte' : 'Editar Reporte'
-        },
-        imageRules() {
-            if( this.editedIndex === -1 )
-                return [
-                    v => !!v || 'Este campo es necesario.'
-                ]
-
-            return []
         }
     },
 
@@ -204,6 +188,7 @@ export default {
 
     methods: {
         initialize () {
+            this.editedItem = Object.assign({}, this.defaultItem)
             this.loadingItems = true
             axios.get('/api/reports')
             .then(response => {
@@ -264,7 +249,7 @@ export default {
                     this.savingItems = false
                     Object.assign(this.items[this.editedIndex], response.data)
                     this.close()
-                    this.showSnackbar('Item actualizado con éxito.')
+                    this.showSnackbar('Reporte actualizado con éxito.')
                 }).catch( error => {
                     this.setResponseError(error)
                     this.savingItems = false
@@ -277,7 +262,7 @@ export default {
                     this.savingItems = false
                     this.items.push(response.data)
                     this.close()
-                    this.showSnackbar('Item guardado con éxito.')
+                    this.showSnackbar('Reporte guardado con éxito.')
                 }).catch( error => {
                     this.setResponseError(error)
                     this.savingItems = false
