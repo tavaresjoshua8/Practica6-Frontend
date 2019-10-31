@@ -22,3 +22,6 @@ npm run lint
 
 ### Customize configuration
 See [Configuration Reference](https://cli.vuejs.org/config/).
+
+### Backend Code
+See [Practica6](https://github.com/tavaresjoshua8/Practica6).
