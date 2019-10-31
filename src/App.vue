@@ -1,3 +1,10 @@
+<style lang="scss">
+/*!
+    * Remove 000webhost banner
+*/
+img[src*="https://cdn.000webhost.com/000webhost/logo/footer-powered-by-000webhost-white2.png"]{display:none}
+</style>
+
 <template>
 	<v-app id="inspire">
 		<v-navigation-drawer
