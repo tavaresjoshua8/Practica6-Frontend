@@ -86,7 +86,7 @@
                 </v-icon>
             </template>
             <template v-slot:no-data>
-                <v-btn color="primary" @click="initialize">Reiniciar</v-btn>
+                <v-btn color="primary" @click="initialize">Reintentar</v-btn>
             </template>
         </v-data-table>
         <v-snackbar
@@ -284,7 +284,7 @@ export default {
             } else {
                 this.response = {
                     error: true,
-                    message: error.response.data.message
+                    message: error.response ? error.response.data.message : error
                 }
             }
         },

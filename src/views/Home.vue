@@ -1,5 +1,19 @@
 <template>
 	<div>
+        <v-tooltip right>
+			<template v-slot:activator="{ on }">
+				<v-btn
+					href="https://github.com/tavaresjoshua8/Practica6"
+					icon
+					large
+					target="_blank"
+					v-on="on"
+				>
+					<v-icon large>mdi-code-tags</v-icon>
+				</v-btn>
+			</template>
+			<span>Source Code</span>
+		</v-tooltip>
 		<v-tooltip right>
 			<template v-slot:activator="{ on }">
 				<v-btn

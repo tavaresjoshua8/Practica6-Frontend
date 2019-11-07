@@ -23,20 +23,20 @@ img[src*="https://cdn.000webhost.com/000webhost/logo/footer-powered-by-000webhos
 						<v-list-item-title>Home</v-list-item-title>
 					</v-list-item-content>
 				</v-list-item>
+                <v-list-item link :to="{name: 'inventario'}">
+					<v-list-item-action>
+						<v-icon>mdi-book-outline</v-icon>
+					</v-list-item-action>
+					<v-list-item-content>
+						<v-list-item-title>Inventario</v-list-item-title>
+					</v-list-item-content>
+				</v-list-item>
 				<v-list-item link :to="{name: 'reportes'}">
 					<v-list-item-action>
 						<v-icon>mdi-alert</v-icon>
 					</v-list-item-action>
 					<v-list-item-content>
 						<v-list-item-title>Reportes</v-list-item-title>
-					</v-list-item-content>
-				</v-list-item>
-				<v-list-item link :to="{name: 'inventario'}">
-					<v-list-item-action>
-						<v-icon>mdi-book-outline</v-icon>
-					</v-list-item-action>
-					<v-list-item-content>
-						<v-list-item-title>Inventario</v-list-item-title>
 					</v-list-item-content>
 				</v-list-item>
 			</v-list>
@@ -70,8 +70,6 @@ img[src*="https://cdn.000webhost.com/000webhost/logo/footer-powered-by-000webhos
 			<span>
 				<v-icon small>mdi-coffee-outline</v-icon>
 				Joshua Salcido
-                <v-icon small>mdi-database-check</v-icon>
-                Aranza Alanis
 				&copy; 2019
 			</span>
 		</v-footer>
